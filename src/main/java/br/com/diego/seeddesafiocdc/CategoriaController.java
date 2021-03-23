@@ -13,29 +13,30 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
 //4
 @RestController
-@RequestMapping("autores")
-public class AutorController {
+@RequestMapping("categorias")
+public class CategoriaController {
 
 	//1
 	@Autowired
-	private AutorRepository autorRepository;
+	private CategoriaRepository categoriaRepository;
 	//1
 	@Autowired
-	private ProibeEmailDuplicadoAutorValidator proibeEmailDuplicadoAutorValidator;
+	private ProibeNomeDuplicadoCategoriaValidator proibeNomeDuplicadoCategoriaValidator;
 	
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(proibeEmailDuplicadoAutorValidator);
+		binder.addValidators(proibeNomeDuplicadoCategoriaValidator);
 	}
 	//1
-	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
-	public Map<String, Object> save(@Valid @RequestBody AutorRequest request) {
+	@ResponseStatus(HttpStatus.CREATED)
+	public Map<String, Object> save(@Valid @RequestBody CategoriaRequest request) {
 		//1
-		var autor = request.toModel();
-		autorRepository.save(autor);
-		return autor.toResponse();
+		var categoria = request.toModel();		
+		categoriaRepository.save(categoria);
+		return categoria.toResponse();
 	}
 }
