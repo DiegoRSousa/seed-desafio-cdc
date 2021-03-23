@@ -6,15 +6,13 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-//4
+//3
 @RestController
 @RequestMapping("categorias")
 public class CategoriaController {
@@ -22,14 +20,7 @@ public class CategoriaController {
 	//1
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	//1
-	@Autowired
-	private ProibeNomeDuplicadoCategoriaValidator proibeNomeDuplicadoCategoriaValidator;
-	
-	@InitBinder
-	public void init(WebDataBinder binder) {
-		binder.addValidators(proibeNomeDuplicadoCategoriaValidator);
-	}
+
 	//1
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
