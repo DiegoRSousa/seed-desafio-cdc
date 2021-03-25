@@ -4,8 +4,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import br.com.diego.seeddesafiocdc.errors.validator.UniqueValue;
 import br.com.diego.seeddesafiocdc.model.Autor;
+import br.com.diego.seeddesafiocdc.validator.UniqueValue;
 
 public class AutorRequest {
 

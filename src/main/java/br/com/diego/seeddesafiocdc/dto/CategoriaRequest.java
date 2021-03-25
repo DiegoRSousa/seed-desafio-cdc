@@ -2,8 +2,8 @@ package br.com.diego.seeddesafiocdc.dto;
 
 import javax.validation.constraints.NotBlank;
 
-import br.com.diego.seeddesafiocdc.errors.validator.UniqueValue;
 import br.com.diego.seeddesafiocdc.model.Categoria;
+import br.com.diego.seeddesafiocdc.validator.UniqueValue;
 
 public class CategoriaRequest {
 
