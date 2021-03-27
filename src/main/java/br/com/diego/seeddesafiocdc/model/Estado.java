@@ -1,7 +1,5 @@
 package br.com.diego.seeddesafiocdc.model;
 
-import java.util.Map;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,8 +39,5 @@ public class Estado {
 	}
 	public Long getId() {
 		return id;
-	}
-	public Map<String, Object> toResponse() {
-		return Map.of("id", id, "nome", nome, "pais", pais.getNome());
 	}
 }

@@ -26,7 +26,7 @@ public class PaisController {
 	//1
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Map<String, Object> save(@Valid @RequestBody PaisRequest request) {
+	public Map<String, Object> save(@RequestBody @Valid PaisRequest request) {
 		//1
 		var pais = request.toModel();
 		paisRepository.save(pais);

@@ -1,7 +1,6 @@
 package br.com.diego.seeddesafiocdc.model;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,10 +34,6 @@ public class Autor {
 		this.nome = nome;
 		this.email = email;
 		this.descricao = descricao;
-	}
-	
-	public Map<String, Object> toResponse() {
-		return Map.of("id", id, "nome", nome, "email", email, "descricao", descricao, "instante", instante);
 	}
 	
 	public Long getId() {

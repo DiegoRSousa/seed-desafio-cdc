@@ -1,7 +1,5 @@
 package br.com.diego.seeddesafiocdc.model;
 
-import java.util.Map;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,10 +22,6 @@ public class Categoria {
 	
 	public Categoria(@NotBlank String nome) {
 		this.nome = nome;
-	}
-	
-	public Map<String, Object> toResponse() {
-		return Map.of("id", id, "nome", nome);
 	}
 
 	public Long getId() {

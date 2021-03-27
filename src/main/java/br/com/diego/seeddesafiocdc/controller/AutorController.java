@@ -1,11 +1,10 @@
 package br.com.diego.seeddesafiocdc.controller;
 
-import java.util.Map;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.diego.seeddesafiocdc.dto.AutorRequest;
+import br.com.diego.seeddesafiocdc.dto.AutorResponse;
 import br.com.diego.seeddesafiocdc.repository.AutorRepository;
-//3
+
+//4
 @RestController
 @RequestMapping("autores")
 public class AutorController {
@@ -24,12 +25,13 @@ public class AutorController {
 	private AutorRepository autorRepository;
 
 	//1
-	@ResponseStatus(HttpStatus.CREATED)
+	//1
 	@PostMapping
-	public Map<String, Object> save(@Valid @RequestBody AutorRequest request) {
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<AutorResponse> save(@RequestBody @Valid AutorRequest request) {
 		//1
 		var autor = request.toModel();
 		autorRepository.save(autor);
-		return autor.toResponse();
+		return new ResponseEntity<>(new AutorResponse(autor), HttpStatus.CREATED);
 	}
 }

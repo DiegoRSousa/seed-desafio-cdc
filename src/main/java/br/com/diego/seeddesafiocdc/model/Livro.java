@@ -3,7 +3,6 @@ package br.com.diego.seeddesafiocdc.model;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Map;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -66,16 +65,8 @@ public class Livro {
 		this.autor = autor;
 	}
 	
-	public Map<String, Object> toResponse() {
-		return Map.of("id", id, "titulo", titulo, "resumo", resumo, "sumario", sumario == null ? "" : sumario, 
-				"preco", preco, "numeroDePaginas", numeroDePaginas, "isbn", isbn,  "dataDePublicacao", 
-				dataDePublicacao, "categoria", categoria.getNome(), "autor", autor.getNome());
-	}
-	
-	public Map<String, Object> toDetailsResponse() {
-		return Map.of("titulo", titulo, "resumo", resumo, "sumario", sumario, "preco", preco, 
-				"numeroDePaginas", numeroDePaginas, "isbn", isbn,  "dataDePublicacao", 
-				dataDePublicacao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), "categoria", categoria.getNome(), "autor", autor.getNome());
+	public String getDataDePublicacaoFormatada(String formato) {
+		return dataDePublicacao.format(DateTimeFormatter.ofPattern(formato));
 	}
 	
 	public String getTitulo() {
