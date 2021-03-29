@@ -6,12 +6,12 @@ public class EstadoResponse {
 
 	private Long id; 
 	private String nome; 
-	private String paisNome;
+	private String pais;
 	
 	public EstadoResponse(Estado estado) {
 		this.id = estado.getId();
 		this.nome = estado.getNome();
-		this.paisNome = estado.getPais().getNome();
+		this.pais = estado.getPais().getNome();
 	}
 
 	public Long getId() {
@@ -22,7 +22,7 @@ public class EstadoResponse {
 		return nome;
 	}
 
-	public String getPaisNome() {
-		return paisNome;
+	public String getPais() {
+		return pais;
 	}
 }
