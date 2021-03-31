@@ -1,16 +1,26 @@
 package br.com.diego.seeddesafiocdc.dto;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
+import br.com.diego.seeddesafiocdc.model.Compra;
 import br.com.diego.seeddesafiocdc.model.Estado;
 import br.com.diego.seeddesafiocdc.model.Pais;
+import br.com.diego.seeddesafiocdc.repository.EstadoRepository;
+import br.com.diego.seeddesafiocdc.repository.LivroRepository;
+import br.com.diego.seeddesafiocdc.repository.PaisRepository;
 import br.com.diego.seeddesafiocdc.validator.ExistsId;
 
 public class CompraRequest {
@@ -21,6 +31,7 @@ public class CompraRequest {
 	private String nome;
 	@NotBlank
 	private String sobrenome;
+	@NotBlank
 	private String documento;
 	@NotBlank
 	private String endereco;
@@ -36,6 +47,11 @@ public class CompraRequest {
 	private String telefone;
 	@NotBlank
 	private String cep;
+	@NotNull
+	@Positive
+	private BigDecimal total;
+	@Valid
+	private List<ItemCompraRequest> itensCompraRequest = new ArrayList<>();
 	
 	public boolean documentoValido() {
 		Assert.hasLength(documento, "O documento deve ser preenchido");
@@ -46,6 +62,15 @@ public class CompraRequest {
 		cnpjValidator.initialize(null);
 		
 		return cpfValidator.isValid(documento, null) || cnpjValidator.isValid(documento, null);
+	}
+	
+	public Compra toModel(PaisRepository paisRepository, EstadoRepository estadoRepository, LivroRepository livroRepository) {
+		var pais = paisRepository.getOne(paisId);
+		var estado = estadoId != null ? estadoRepository.getOne(estadoId) : null;
+		var itensCompra = itensCompraRequest.stream().map(item -> item.toModel(livroRepository)).collect(Collectors.toList());
+		
+		return new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, 
+				telefone, cep, total, itensCompra);
 	}
 
 	public String getEmail() {
@@ -90,5 +115,13 @@ public class CompraRequest {
 
 	public String getCep() {
 		return cep;
+	}
+	
+	public BigDecimal getTotal() {
+		return total;
+	}
+	
+	public List<ItemCompraRequest> getItensCompraRequest() {
+		return itensCompraRequest;
 	}
 }
