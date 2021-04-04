@@ -7,12 +7,15 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.diego.seeddesafiocdc.dto.CompraDetails;
 import br.com.diego.seeddesafiocdc.dto.CompraRequest;
 import br.com.diego.seeddesafiocdc.repository.CompraRepository;
 import br.com.diego.seeddesafiocdc.repository.CupomRepository;
@@ -49,5 +52,13 @@ public class CompraController {
 		var compra = request.toModel(paisRepository, estadoRepository, livroRepository, cupomRepository);
 		compraRepository.save(compra);
 		return ResponseEntity.created(URI.create("compras/" + compra.getId())).build();
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<CompraDetails> details(@PathVariable Long id) {
+		var compra = compraRepository.findById(id);
+		if(compra.isPresent())
+			return ResponseEntity.ok(new CompraDetails(compra.get()));
+		return ResponseEntity.notFound().build();
 	}
 }

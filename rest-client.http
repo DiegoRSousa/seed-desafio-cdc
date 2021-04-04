@@ -73,7 +73,7 @@ Content-Type: application/json
     "paisId": 1
 }
 ###
-POST {{baseUrl}}/compras
+POST {{baseUrl}}/compras/
 Content-Type: application/json
 
 {
@@ -102,3 +102,36 @@ Content-Type: application/json
     ]
 
 }
+
+###
+POST {{baseUrl}}/compras/
+Content-Type: application/json
+
+{
+    "email": "diegors90@gmail.com",
+    "nome": "Diego",
+	"sobrenome": "Sousa",
+	"documento": "528.626.500-64",
+	"endereco": "Rua Jardim",
+    "complemento": ".",
+	"cidade": "Catolé do Rocha",
+	"paisId": 2,
+	"telefone": "83999999999",
+	"cep": "58884000",
+    "total": "100.00",
+    "itensCompraRequest": [
+        {
+            "livroId": 1,
+            "quantidade": 2
+        },
+        {
+            "livroId": 2,
+            "quantidade": 1
+        }
+    ]
+
+}
+
+
+###
+GET {{baseUrl}}/compras/2
