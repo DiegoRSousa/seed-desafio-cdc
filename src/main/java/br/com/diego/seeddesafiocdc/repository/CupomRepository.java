@@ -6,4 +6,5 @@ import br.com.diego.seeddesafiocdc.model.Cupom;
 
 public interface CupomRepository extends JpaRepository<Cupom, Long>{
 
+	Cupom findByCodigo(String codigo);
 }

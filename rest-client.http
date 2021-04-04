@@ -89,6 +89,7 @@ Content-Type: application/json
 	"telefone": "83999999999",
 	"cep": "58884000",
     "total": "100.00",
+    "codigoCupom": "XBS101",
     "itensCompraRequest": [
         {
             "livroId": 1,
@@ -100,13 +101,4 @@ Content-Type: application/json
         }
     ]
 
-}
-###
-POST {{baseUrl}}/cupons
-Content-Type: application/json
-
-{
-    "codigo": "XBS100",
-    "percentual": 10,
-    "validade": "2021-10-10"
 }

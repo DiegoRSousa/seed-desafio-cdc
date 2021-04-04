@@ -33,6 +33,10 @@ public class Cupom {
 		this.percentual = percentual;
 		this.validade = validade;
 	}
+	
+	public boolean isValid() {
+		return LocalDate.now().compareTo(validade) <= 0;
+	}
 
 	public Long getId() {
 		return id;

@@ -15,4 +15,5 @@ insert into pais (nome) values ('Alemanha');
 insert into estado (nome, pais_id) values ('Paraíba', 1);
 insert into estado (nome, pais_id) values ('São P aulo', 1);
 
-insert into cupom (codigo, percentual, validade) values ('XBS100', 10, '2021-10-10')
+insert into cupom (codigo, percentual, validade) values ('XBS100', 10, '2021-04-02');
+insert into cupom (codigo, percentual, validade) values ('XBS101', 10, '2021-04-03');

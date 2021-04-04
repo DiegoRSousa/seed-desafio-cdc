@@ -19,6 +19,7 @@ import org.springframework.util.Assert;
 import br.com.diego.seeddesafiocdc.model.Compra;
 import br.com.diego.seeddesafiocdc.model.Estado;
 import br.com.diego.seeddesafiocdc.model.Pais;
+import br.com.diego.seeddesafiocdc.repository.CupomRepository;
 import br.com.diego.seeddesafiocdc.repository.EstadoRepository;
 import br.com.diego.seeddesafiocdc.repository.LivroRepository;
 import br.com.diego.seeddesafiocdc.repository.PaisRepository;
@@ -54,6 +55,7 @@ public class CompraRequest {
 	@Valid
 	@Size(min = 1)
 	private List<ItemCompraRequest> itensCompraRequest = new ArrayList<>();
+	private String codigoCupom;
 	
 	public boolean documentoValido() {
 		Assert.hasLength(documento, "O documento deve ser preenchido");
@@ -66,12 +68,19 @@ public class CompraRequest {
 		return cpfValidator.isValid(documento, null) || cnpjValidator.isValid(documento, null);
 	}
 	
-	public Compra toModel(PaisRepository paisRepository, EstadoRepository estadoRepository, LivroRepository livroRepository) {
+	public Compra toModel(PaisRepository paisRepository, EstadoRepository estadoRepository, 
+			LivroRepository livroRepository, CupomRepository cupomRepository) {
 		var pais = paisRepository.getOne(paisId);
 		var estado = estadoId != null ? estadoRepository.getOne(estadoId) : null;
 		var itensCompra = itensCompraRequest.stream().map(item -> item.toModel(livroRepository)).collect(Collectors.toList());
 		var compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, 
 				telefone, cep, total, itensCompra);
+		if(codigoCupom != null) {
+			var cupom = cupomRepository.findByCodigo(codigoCupom);
+			Assert.notNull(cupom, "O cupom não existe!");
+			compra.setCupom(cupom);
+		}
+			
 		Assert.isTrue(compra.totalIgual(total), "O total do pedido é diferente do total dos itens");
 		return compra;
 
@@ -125,6 +134,10 @@ public class CompraRequest {
 		return total;
 	}
 	
+	public String getCodigoCupom() {
+		return codigoCupom;
+	}
+
 	public List<ItemCompraRequest> getItensCompraRequest() {
 		return itensCompraRequest;
 	}

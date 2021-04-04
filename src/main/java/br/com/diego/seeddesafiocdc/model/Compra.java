@@ -12,11 +12,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+
+import org.springframework.util.Assert;
 
 @Entity
 public class Compra {
@@ -51,10 +54,14 @@ public class Compra {
 	@NotNull
 	@Positive
 	private BigDecimal total;
+	@OneToOne
+	private Cupom cupom;
 	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "compra_Id")
 	private List<ItemCompra> itensCompra = new ArrayList<>();
 	
+	@Deprecated
+	public Compra() {}
 	public Compra(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome,
 			@NotBlank String documento, @NotBlank String endereco, @NotBlank String complemento,
 			@NotBlank String cidade, @NotNull Pais pais, Estado estado, @NotBlank String telefone, @NotBlank String cep,
@@ -151,6 +158,14 @@ public class Compra {
 	}
 	public void setTotal(BigDecimal total) {
 		this.total = total;
+	}
+	public Cupom getCupom () {
+		return cupom;
+	}
+	public void setCupom(Cupom cupom) {
+		Assert.isTrue(cupom.isValid(), "O cupom não é valido");
+		Assert.isNull(this.cupom, "A compra já possui um cupom");
+		this.cupom = cupom;
 	}
 	public List<ItemCompra> getItensCompra() {
 		return itensCompra;

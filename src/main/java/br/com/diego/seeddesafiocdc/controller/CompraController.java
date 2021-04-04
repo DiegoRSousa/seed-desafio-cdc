@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.diego.seeddesafiocdc.dto.CompraRequest;
 import br.com.diego.seeddesafiocdc.repository.CompraRepository;
+import br.com.diego.seeddesafiocdc.repository.CupomRepository;
 import br.com.diego.seeddesafiocdc.repository.EstadoRepository;
 import br.com.diego.seeddesafiocdc.repository.LivroRepository;
 import br.com.diego.seeddesafiocdc.repository.PaisRepository;
@@ -34,6 +35,8 @@ public class CompraController {
 	@Autowired
 	private EstadoRepository estadoRepository;
 	@Autowired
+	private CupomRepository cupomRepository;
+	@Autowired
 	private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
 	
 	@InitBinder
@@ -43,9 +46,8 @@ public class CompraController {
 	
 	@PostMapping
 	public ResponseEntity<Void> save(@Valid @RequestBody CompraRequest request) {
-		var compra = request.toModel(paisRepository, estadoRepository, livroRepository);
+		var compra = request.toModel(paisRepository, estadoRepository, livroRepository, cupomRepository);
 		compraRepository.save(compra);
-		
 		return ResponseEntity.created(URI.create("compras/" + compra.getId())).build();
 	}
 }
