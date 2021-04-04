@@ -4,7 +4,7 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "Diego",
+    "nome": "",
     "email": "diego@gmail.com",
     "descricao": "Desenvolvedor java"
 }
@@ -100,4 +100,13 @@ Content-Type: application/json
         }
     ]
 
+}
+###
+POST {{baseUrl}}/cupons
+Content-Type: application/json
+
+{
+    "codigo": "XBS100",
+    "percentual": 10,
+    "validade": "2021-10-10"
 }
