@@ -36,7 +36,7 @@ POST {{baseUrl}}/livros
 Content-Type: application/json
 
 {
-  "titulo": "Spring Boot 2.0",
+  "titulo": "Java e orientação a objectos",
   "resumo": "resumo",
   "sumario": "sumario",
   "preco": 110.00,
@@ -84,11 +84,11 @@ Content-Type: application/json
 	"endereco": "Rua Jardim",
     "complemento": ".",
 	"cidade": "Catolé do Rocha",
-	"paisId": 2,
+	"paisId": 1,
 	"estadoId": 1,
 	"telefone": "83999999999",
 	"cep": "58884000",
-    "total": 100,
+    "total": "100.00",
     "itensCompraRequest": [
         {
             "livroId": 1,
@@ -100,14 +100,4 @@ Content-Type: application/json
         }
     ]
 
-}
-
-
-
-###
-POST {{baseUrl}}/api/paises
-Content-Type: application/json
-
-{
-    "nome": "Brasil"
 }

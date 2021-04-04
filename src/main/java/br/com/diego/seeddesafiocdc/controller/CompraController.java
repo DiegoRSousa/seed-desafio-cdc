@@ -1,8 +1,11 @@
 package br.com.diego.seeddesafiocdc.controller;
 
+import java.net.URI;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,17 +35,17 @@ public class CompraController {
 	private EstadoRepository estadoRepository;
 	@Autowired
 	private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
+	
 	@InitBinder
 	public void init(WebDataBinder binder) {
 		binder.addValidators(new VerificaDocumentoCpfOuCnpjValidator(), estadoPertenceAPaisValidator);
 	}
 	
 	@PostMapping
-	public Long save(@Valid @RequestBody CompraRequest request) {
-		
+	public ResponseEntity<Void> save(@Valid @RequestBody CompraRequest request) {
 		var compra = request.toModel(paisRepository, estadoRepository, livroRepository);
-		
 		compraRepository.save(compra);
-		return compra.getId();
+		
+		return ResponseEntity.created(URI.create("compras/" + compra.getId())).build();
 	}
 }

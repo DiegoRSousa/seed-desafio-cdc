@@ -35,6 +35,10 @@ public class ItemCompra {
 		this.preco = livro.getPreco();
 	}
 	
+	public BigDecimal total() {
+		return preco.multiply(new BigDecimal(quantidade));
+	}
+	
 	public Livro getLivro() {
 		return livro;
 	}

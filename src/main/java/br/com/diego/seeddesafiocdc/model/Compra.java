@@ -51,7 +51,7 @@ public class Compra {
 	@NotNull
 	@Positive
 	private BigDecimal total;
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "compra_Id")
 	private List<ItemCompra> itensCompra = new ArrayList<>();
 	
@@ -72,6 +72,12 @@ public class Compra {
 		this.cep = cep;
 		this.total = total;
 		this.itensCompra = itensCompra;
+	}
+	
+	public boolean totalIgual(@Positive @NotNull BigDecimal total) {
+		var totalItens = itensCompra.stream().map(ItemCompra::total).reduce(
+							BigDecimal.ZERO, (atual, proximo) -> atual.add(proximo));
+		return totalItens.equals(total);
 	}
 	
 	public String getEmail() {

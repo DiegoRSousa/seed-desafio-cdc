@@ -10,6 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
@@ -51,6 +52,7 @@ public class CompraRequest {
 	@Positive
 	private BigDecimal total;
 	@Valid
+	@Size(min = 1)
 	private List<ItemCompraRequest> itensCompraRequest = new ArrayList<>();
 	
 	public boolean documentoValido() {
@@ -68,9 +70,11 @@ public class CompraRequest {
 		var pais = paisRepository.getOne(paisId);
 		var estado = estadoId != null ? estadoRepository.getOne(estadoId) : null;
 		var itensCompra = itensCompraRequest.stream().map(item -> item.toModel(livroRepository)).collect(Collectors.toList());
-		
-		return new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, 
+		var compra = new Compra(email, nome, sobrenome, documento, endereco, complemento, cidade, pais, estado, 
 				telefone, cep, total, itensCompra);
+		Assert.isTrue(compra.totalIgual(total), "O total do pedido é diferente do total dos itens");
+		return compra;
+
 	}
 
 	public String getEmail() {
