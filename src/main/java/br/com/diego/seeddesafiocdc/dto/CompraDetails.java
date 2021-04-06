@@ -44,16 +44,16 @@ public class CompraDetails {
 		this.total = compra.getTotal();
 		if (compra.getCupom() != null) {
 			this.codigoCupom = compra.getCupom().getCodigo();
-			this.percentual = compra.getCupom().getPercentual();
+			this.percentual = compra.getCupom().getPercentualDeDesconto();
 			this.totalComDesconto = this.total.subtract(this.total.multiply(
-					new BigDecimal(compra.getCupom().getPercentual())).divide(new BigDecimal("100")));
+					new BigDecimal(compra.getCupom().getPercentualDeDesconto())).divide(new BigDecimal("100")));
 		}
-		var itens = compra
-						.getItensCompra()
-						.stream()
-						.map(item -> new ItemCompraDetails(item.getLivro(), item.getQuantidade()))
-						.collect(Collectors.toList());
-		itensCompra.addAll(itens);				
+		
+		itensCompra.addAll(compra
+							.getItensCompra()
+							.stream()
+							.map(item -> new ItemCompraDetails(item.getLivro(), item.getQuantidade()))
+							.collect(Collectors.toList()));				
 	}
 
 

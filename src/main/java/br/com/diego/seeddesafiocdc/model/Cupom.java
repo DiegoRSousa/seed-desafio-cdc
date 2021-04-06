@@ -21,16 +21,16 @@ public class Cupom {
 	private String codigo;
 	@NotNull
 	@Positive
-	private int percentual;
+	private int percentualDeDesconto;
 	@Future
 	private LocalDate validade;
 	
 	@Deprecated
 	public Cupom() {}
 
-	public Cupom(@NotBlank String codigo, @NotNull @Positive int percentual, @Future LocalDate validade) {
+	public Cupom(@NotBlank String codigo, @NotNull @Positive int percentualDeDesconto, @Future LocalDate validade) {
 		this.codigo = codigo;
-		this.percentual = percentual;
+		this.percentualDeDesconto = percentualDeDesconto;
 		this.validade = validade;
 	}
 	
@@ -46,8 +46,8 @@ public class Cupom {
 		return codigo;
 	}
 
-	public int getPercentual() {
-		return percentual;
+	public int getPercentualDeDesconto() {
+		return percentualDeDesconto;
 	}
 
 	public LocalDate getValidade() {

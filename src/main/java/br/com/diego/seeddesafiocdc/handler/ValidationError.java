@@ -1,4 +1,4 @@
-package br.com.diego.seeddesafiocdc.exception;
+package br.com.diego.seeddesafiocdc.handler;
 
 import java.util.ArrayList;
 import java.util.List;

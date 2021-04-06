@@ -6,12 +6,12 @@ import javax.validation.constraints.Positive;
 import br.com.diego.seeddesafiocdc.model.ItemCompra;
 import br.com.diego.seeddesafiocdc.model.Livro;
 import br.com.diego.seeddesafiocdc.repository.LivroRepository;
-import br.com.diego.seeddesafiocdc.validator.ExistsId;
+import br.com.diego.seeddesafiocdc.validator.Exists;
 
 public class ItemCompraRequest {
 
 	@NotNull
-	@ExistsId(domainClass = Livro.class, fieldName = "id")
+	@Exists(domainClass = Livro.class, fieldName = "id")
 	private Long livroId;
 	@Positive
 	private int quantidade;

@@ -17,13 +17,14 @@ import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
 
 import br.com.diego.seeddesafiocdc.model.Compra;
+import br.com.diego.seeddesafiocdc.model.Cupom;
 import br.com.diego.seeddesafiocdc.model.Estado;
 import br.com.diego.seeddesafiocdc.model.Pais;
 import br.com.diego.seeddesafiocdc.repository.CupomRepository;
 import br.com.diego.seeddesafiocdc.repository.EstadoRepository;
 import br.com.diego.seeddesafiocdc.repository.LivroRepository;
 import br.com.diego.seeddesafiocdc.repository.PaisRepository;
-import br.com.diego.seeddesafiocdc.validator.ExistsId;
+import br.com.diego.seeddesafiocdc.validator.Exists;
 
 public class CompraRequest {
 	@NotBlank
@@ -41,9 +42,9 @@ public class CompraRequest {
 	private String complemento;
 	@NotBlank
 	private String cidade;
-	@ExistsId(domainClass = Pais.class, fieldName = "id")
+	@Exists(domainClass = Pais.class, fieldName = "id")
 	private Long paisId;
-	@ExistsId(domainClass = Estado.class, fieldName = "id")
+	@Exists(domainClass = Estado.class, fieldName = "id")
 	private Long estadoId;
 	@NotBlank
 	private String telefone;
@@ -55,6 +56,7 @@ public class CompraRequest {
 	@Valid
 	@Size(min = 1)
 	private List<ItemCompraRequest> itensCompraRequest = new ArrayList<>();
+	@Exists(domainClass = Cupom.class, fieldName = "codigo")
 	private String codigoCupom;
 	
 	public boolean documentoValido() {

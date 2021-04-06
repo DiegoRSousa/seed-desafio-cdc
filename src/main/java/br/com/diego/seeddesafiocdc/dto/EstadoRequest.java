@@ -3,9 +3,12 @@ package br.com.diego.seeddesafiocdc.dto;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.util.Assert;
+
 import br.com.diego.seeddesafiocdc.model.Estado;
 import br.com.diego.seeddesafiocdc.model.Pais;
-import br.com.diego.seeddesafiocdc.validator.ExistsId;
+import br.com.diego.seeddesafiocdc.repository.PaisRepository;
+import br.com.diego.seeddesafiocdc.validator.Exists;
 import br.com.diego.seeddesafiocdc.validator.UniqueValue;
 
 public class EstadoRequest {
@@ -14,17 +17,17 @@ public class EstadoRequest {
 	@UniqueValue(domainClass = Estado.class, fieldName = "nome")
 	private String nome;
 	@NotNull
-	@ExistsId(domainClass = Pais.class, fieldName = "id")
+	@Exists(domainClass = Pais.class, fieldName = "id")
 	private Long paisId;
 	
-	public Estado toModel(Pais pais) {
+	public Estado toModel(PaisRepository paisRepository) {
+		var pais = paisRepository.getOne(paisId);
+		Assert.notNull(pais, "Não foi localizado nenhum país com o id: " + paisId);
 		return new Estado(nome, pais);
 	}
 
-	public String getNome() {
-		return nome;
-	}
-	public Long getPaisId() {
-		return paisId;
+	public EstadoRequest(@NotBlank String nome, @NotNull Long paisId) {
+		this.nome = nome;
+		this.paisId = paisId;
 	} 
 }

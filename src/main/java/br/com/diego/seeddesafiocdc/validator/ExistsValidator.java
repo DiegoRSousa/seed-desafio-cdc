@@ -9,14 +9,14 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.util.Assert;
 
-public class ExistsIdValidator implements ConstraintValidator<ExistsId, Object> {
+public class ExistsValidator implements ConstraintValidator<Exists, Object> {
 	private String domainAttribute;
 	private Class<?> klazz;
 	@PersistenceContext
 	private EntityManager manager;
 	
 	@Override
-	public void initialize(ExistsId params) {
+	public void initialize(Exists params) {
 		domainAttribute = params.fieldName();
 		klazz = params.domainClass();
 	}

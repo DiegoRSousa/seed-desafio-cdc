@@ -14,7 +14,7 @@ public class CupomResponse {
 	public CupomResponse(Cupom cupom) {
 		this.id = cupom.getId();
 		this.codigo = cupom.getCodigo();
-		this.percentual = cupom.getPercentual();
+		this.percentual = cupom.getPercentualDeDesconto();
 		this.validade = cupom.getValidade();
 	}
 

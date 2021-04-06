@@ -4,7 +4,7 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import br.com.diego.seeddesafiocdc.dto.CompraDetails;
 import br.com.diego.seeddesafiocdc.dto.CompraRequest;
@@ -22,6 +23,7 @@ import br.com.diego.seeddesafiocdc.repository.CupomRepository;
 import br.com.diego.seeddesafiocdc.repository.EstadoRepository;
 import br.com.diego.seeddesafiocdc.repository.LivroRepository;
 import br.com.diego.seeddesafiocdc.repository.PaisRepository;
+import br.com.diego.seeddesafiocdc.validator.CupomValidate;
 import br.com.diego.seeddesafiocdc.validator.EstadoPertenceAPaisValidator;
 import br.com.diego.seeddesafiocdc.validator.VerificaDocumentoCpfOuCnpjValidator;
 
@@ -29,22 +31,30 @@ import br.com.diego.seeddesafiocdc.validator.VerificaDocumentoCpfOuCnpjValidator
 @RequestMapping("compras")
 public class CompraController {
 	
-	@Autowired
 	private CompraRepository compraRepository;
-	@Autowired
 	private LivroRepository livroRepository;
-	@Autowired
 	private PaisRepository paisRepository;
-	@Autowired
 	private EstadoRepository estadoRepository;
-	@Autowired
 	private CupomRepository cupomRepository;
-	@Autowired
 	private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
+	private CupomValidate cupomValidate;
 	
+	
+	public CompraController(CompraRepository compraRepository, LivroRepository livroRepository,
+			PaisRepository paisRepository, EstadoRepository estadoRepository, CupomRepository cupomRepository,
+			EstadoPertenceAPaisValidator estadoPertenceAPaisValidator, CupomValidate cupomValidate) {
+		this.compraRepository = compraRepository;
+		this.livroRepository = livroRepository;
+		this.paisRepository = paisRepository;
+		this.estadoRepository = estadoRepository;
+		this.cupomRepository = cupomRepository;
+		this.estadoPertenceAPaisValidator = estadoPertenceAPaisValidator;
+		this.cupomValidate = cupomValidate;
+	}
+
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(new VerificaDocumentoCpfOuCnpjValidator(), estadoPertenceAPaisValidator);
+		binder.addValidators(new VerificaDocumentoCpfOuCnpjValidator(), estadoPertenceAPaisValidator, cupomValidate);
 	}
 	
 	@PostMapping
@@ -56,9 +66,8 @@ public class CompraController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<CompraDetails> details(@PathVariable Long id) {
-		var compra = compraRepository.findById(id);
-		if(compra.isPresent())
-			return ResponseEntity.ok(new CompraDetails(compra.get()));
-		return ResponseEntity.notFound().build();
+		var compra = compraRepository.findById(id).orElseThrow(
+							() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Compra não encontrada!"));
+		return ResponseEntity.ok(new CompraDetails(compra));
 	}
 }

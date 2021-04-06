@@ -16,7 +16,9 @@ import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import br.com.diego.seeddesafiocdc.model.Autor;
 import br.com.diego.seeddesafiocdc.model.Categoria;
 import br.com.diego.seeddesafiocdc.model.Livro;
-import br.com.diego.seeddesafiocdc.validator.ExistsId;
+import br.com.diego.seeddesafiocdc.repository.AutorRepository;
+import br.com.diego.seeddesafiocdc.repository.CategoriaRepository;
+import br.com.diego.seeddesafiocdc.validator.Exists;
 import br.com.diego.seeddesafiocdc.validator.UniqueValue;
 
 public class LivroRequest {
@@ -40,13 +42,15 @@ public class LivroRequest {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate dataDePublicacao;
 	@NotNull
-	@ExistsId(domainClass = Categoria.class, fieldName = "id")
+	@Exists(domainClass = Categoria.class, fieldName = "id")
 	private Long categoriaId;
 	@NotNull
-	@ExistsId(domainClass = Autor.class, fieldName = "id")
+	@Exists(domainClass = Autor.class, fieldName = "id")
 	private Long autorId;
 	
-	public Livro toModel(Categoria categoria, Autor autor) {
+	public Livro toModel(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
+		var categoria = categoriaRepository.getOne(categoriaId);
+		var autor = autorRepository.getOne(autorId);
 		return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataDePublicacao, categoria, autor);
 	}
 	

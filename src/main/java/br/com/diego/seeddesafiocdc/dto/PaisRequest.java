@@ -7,11 +7,11 @@ public class PaisRequest {
 
 	@UniqueValue(domainClass = Pais.class, fieldName = "nome")
 	private String nome;
-	
+
 	public Pais toModel() {
 		return new Pais(nome);
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}

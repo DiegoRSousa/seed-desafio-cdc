@@ -1,4 +1,4 @@
-package br.com.diego.seeddesafiocdc.exception;
+package br.com.diego.seeddesafiocdc.handler;
 
 public class FieldMessage {
 

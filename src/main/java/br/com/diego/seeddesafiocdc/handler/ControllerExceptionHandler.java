@@ -1,4 +1,4 @@
-package br.com.diego.seeddesafiocdc.exception;
+package br.com.diego.seeddesafiocdc.handler;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -8,12 +8,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.server.ResponseStatusException;
 
 @ControllerAdvice
 public class ControllerExceptionHandler {
 
-	@ExceptionHandler(ObjectNotFoundException.class)
-	public ResponseEntity<StandardError> objectNotFound(ObjectNotFoundException e, HttpServletRequest request) {
+	@ExceptionHandler(ResponseStatusException.class)
+	public ResponseEntity<StandardError> objectNotFound(ResponseStatusException e, HttpServletRequest request) {
 		StandardError error = new StandardError(System.currentTimeMillis(), HttpStatus.NOT_FOUND.value(), 
 				"Not found", e.getMessage(), request.getRequestURI());
 		return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(error);

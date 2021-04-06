@@ -20,19 +20,24 @@ public class CupomRequest {
 	private String codigo;
 	@NotNull
 	@Positive
-	private int percentual;
+	private int percentualDeDesconto;
 	@Future
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate validade;
-	
-	public CupomRequest(@NotBlank String codigo, @NotNull @Positive int percentual,
-			@Future LocalDate validade) {
-		this.codigo = codigo;
-		this.percentual = percentual;
-		this.validade = validade;
-	}
 
 	public Cupom toModel() {
-		return new Cupom(codigo, percentual, validade);
+		return new Cupom(codigo, percentualDeDesconto, validade);
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public int getPercentualDeDesconto() {
+		return percentualDeDesconto;
+	}
+
+	public LocalDate getValidade() {
+		return validade;
 	}
 }

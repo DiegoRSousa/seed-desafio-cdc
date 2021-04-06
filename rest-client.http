@@ -4,7 +4,7 @@ POST {{baseUrl}}/autores
 Content-Type: application/json
 
 {
-    "nome": "",
+    "nome": "Diego",
     "email": "diego@gmail.com",
     "descricao": "Desenvolvedor java"
 }
@@ -36,7 +36,7 @@ POST {{baseUrl}}/livros
 Content-Type: application/json
 
 {
-  "titulo": "Java e orientação a objectos",
+  "titulo": "Java 16",
   "resumo": "resumo",
   "sumario": "sumario",
   "preco": 110.00,
@@ -49,13 +49,13 @@ Content-Type: application/json
 ###
 GET {{baseUrl}}/livros
 ###
-GET {{baseUrl}}/livros/1
+GET {{baseUrl}}/livros/5
 ###
 POST {{baseUrl}}/paises
 Content-Type: application/json
 
 {
-    "nome": "Brasil"
+    "nome": "Argentina"
 }
 ###
 POST {{baseUrl}}/paises
@@ -69,8 +69,17 @@ POST {{baseUrl}}/estados
 Content-Type: application/json
 
 {
-    "nome": "Paraíba",
+    "nome": "Rio de Janeiro",
     "paisId": 1
+}
+###
+POST {{baseUrl}}/cupons
+Content-Type: application/json
+
+{
+    "codigo": "DEVEFICIENTE",
+    "percentualDeDesconto": 30,
+    "validade": "30/12/2021"
 }
 ###
 POST {{baseUrl}}/compras/
@@ -89,7 +98,7 @@ Content-Type: application/json
 	"telefone": "83999999999",
 	"cep": "58884000",
     "total": "100.00",
-    "codigoCupom": "XBS101",
+    "codigoCupom": "XBS100",
     "itensCompraRequest": [
         {
             "livroId": 1,

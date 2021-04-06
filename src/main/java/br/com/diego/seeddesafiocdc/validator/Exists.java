@@ -10,10 +10,10 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 
 @Documented
-@Constraint(validatedBy = {ExistsIdValidator.class})
+@Constraint(validatedBy = {ExistsValidator.class})
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ExistsId {
+public @interface Exists {
 
 	String message() default "não existente";
 	
