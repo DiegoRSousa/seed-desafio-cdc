@@ -23,7 +23,7 @@ import br.com.diego.seeddesafiocdc.repository.CupomRepository;
 import br.com.diego.seeddesafiocdc.repository.EstadoRepository;
 import br.com.diego.seeddesafiocdc.repository.LivroRepository;
 import br.com.diego.seeddesafiocdc.repository.PaisRepository;
-import br.com.diego.seeddesafiocdc.validator.CupomValidate;
+import br.com.diego.seeddesafiocdc.validator.CupomValidoValidator;
 import br.com.diego.seeddesafiocdc.validator.EstadoPertenceAPaisValidator;
 import br.com.diego.seeddesafiocdc.validator.VerificaDocumentoCpfOuCnpjValidator;
 
@@ -37,24 +37,24 @@ public class CompraController {
 	private EstadoRepository estadoRepository;
 	private CupomRepository cupomRepository;
 	private EstadoPertenceAPaisValidator estadoPertenceAPaisValidator;
-	private CupomValidate cupomValidate;
+	private CupomValidoValidator cupomValidoValidator;
 	
 	
 	public CompraController(CompraRepository compraRepository, LivroRepository livroRepository,
 			PaisRepository paisRepository, EstadoRepository estadoRepository, CupomRepository cupomRepository,
-			EstadoPertenceAPaisValidator estadoPertenceAPaisValidator, CupomValidate cupomValidate) {
+			EstadoPertenceAPaisValidator estadoPertenceAPaisValidator, CupomValidoValidator cupomValidoValidator) {
 		this.compraRepository = compraRepository;
 		this.livroRepository = livroRepository;
 		this.paisRepository = paisRepository;
 		this.estadoRepository = estadoRepository;
 		this.cupomRepository = cupomRepository;
 		this.estadoPertenceAPaisValidator = estadoPertenceAPaisValidator;
-		this.cupomValidate = cupomValidate;
+		this.cupomValidoValidator = cupomValidoValidator;
 	}
 
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(new VerificaDocumentoCpfOuCnpjValidator(), estadoPertenceAPaisValidator, cupomValidate);
+		binder.addValidators(new VerificaDocumentoCpfOuCnpjValidator(), estadoPertenceAPaisValidator, cupomValidoValidator);
 	}
 	
 	@PostMapping

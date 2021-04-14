@@ -10,6 +10,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.util.Assert;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
@@ -48,37 +51,32 @@ public class LivroRequest {
 	@Exists(domainClass = Autor.class, fieldName = "id")
 	private Long autorId;
 	
+	public void setDataDePublicacao(LocalDate dataDePublicacao) {
+		this.dataDePublicacao = dataDePublicacao;
+	}
+
+	@JsonCreator
+	public LivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
+			@NotNull @DecimalMin("20.00") BigDecimal preco, @Min(100) int numeroDePaginas, @NotBlank String isbn,
+			@Future LocalDate dataDePublicacao, 
+			@NotNull Long categoriaId, @NotNull Long autorId) {
+		this.titulo = titulo;
+		this.resumo = resumo;
+		this.sumario = sumario;
+		this.preco = preco;
+		this.numeroDePaginas = numeroDePaginas;
+		this.isbn = isbn;
+		this.dataDePublicacao = dataDePublicacao;
+		this.categoriaId = categoriaId;
+		this.autorId = autorId;
+	}
+
 	public Livro toModel(CategoriaRepository categoriaRepository, AutorRepository autorRepository) {
 		var categoria = categoriaRepository.getOne(categoriaId);
 		var autor = autorRepository.getOne(autorId);
+		Assert.state(categoria != null, "Não é possível cadastrar um livro sem uma categoria!");
+		Assert.state(autor != null, "Não é possível cadastrar um livro sem um autor!");
 		return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataDePublicacao, categoria, autor);
 	}
-	
-	public String getTitulo() {
-		return titulo;
-	}
-	public String getResumo() {
-		return resumo;
-	}
-	public String getSumario() {
-		return sumario;
-	}
-	public BigDecimal getPreco() {
-		return preco;
-	}
-	public int getNumeroDePaginas() {
-		return numeroDePaginas;
-	}
-	public String getIsbn() {
-		return isbn;
-	}
-	public LocalDate getDataDePublicacao() {
-		return dataDePublicacao;
-	}
-	public Long getCategoriaId() {
-		return categoriaId;
-	}
-	public Long getAutorId() {
-		return autorId;
-	}
+
 }

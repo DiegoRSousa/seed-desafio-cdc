@@ -13,7 +13,7 @@ POST {{baseUrl}}/categorias
 Content-Type: application/json
 
 {
-    "nome": "Java"
+    "nome": "Arquitetura de Software"
 }
 
 ###
@@ -42,14 +42,14 @@ Content-Type: application/json
   "preco": 110.00,
   "numeroDePaginas": 140,
   "isbn": "23324123",
-  "dataDePublicacao": "20/05/2021",
+  "dataDePublicacao": "10/10/2021",
   "categoriaId": 1,
   "autorId": 1
 }
 ###
 GET {{baseUrl}}/livros
 ###
-GET {{baseUrl}}/livros/5
+GET {{baseUrl}}/livros/1
 ###
 POST {{baseUrl}}/paises
 Content-Type: application/json
@@ -77,9 +77,9 @@ POST {{baseUrl}}/cupons
 Content-Type: application/json
 
 {
-    "codigo": "DEVEFICIENTE",
+    "codigo": "DEV2021",
     "percentualDeDesconto": 30,
-    "validade": "30/12/2021"
+    "validade": "10/04/2022"
 }
 ###
 POST {{baseUrl}}/compras/
@@ -91,7 +91,7 @@ Content-Type: application/json
 	"sobrenome": "Sousa",
 	"documento": "528.626.500-64",
 	"endereco": "Rua Jardim",
-    "complemento": ".",
+    "complemento": "Quadra 3",
 	"cidade": "Catolé do Rocha",
 	"paisId": 1,
 	"estadoId": 1,

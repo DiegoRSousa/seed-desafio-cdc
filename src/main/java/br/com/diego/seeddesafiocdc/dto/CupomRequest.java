@@ -7,6 +7,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
@@ -25,19 +26,15 @@ public class CupomRequest {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate validade;
 
+	@JsonCreator
+	public CupomRequest(@NotBlank String codigo, @NotNull @Positive int percentualDeDesconto,
+			@Future LocalDate validade) {
+		this.codigo = codigo;
+		this.percentualDeDesconto = percentualDeDesconto;
+		this.validade = validade;
+	}
+
 	public Cupom toModel() {
 		return new Cupom(codigo, percentualDeDesconto, validade);
-	}
-
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public int getPercentualDeDesconto() {
-		return percentualDeDesconto;
-	}
-
-	public LocalDate getValidade() {
-		return validade;
 	}
 }

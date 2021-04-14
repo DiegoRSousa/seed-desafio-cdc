@@ -11,12 +11,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
+import org.springframework.util.Assert;
+
 @Entity
 public class Cupom {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
 	@NotBlank
 	private String codigo;
 	@NotNull
@@ -29,6 +29,7 @@ public class Cupom {
 	public Cupom() {}
 
 	public Cupom(@NotBlank String codigo, @NotNull @Positive int percentualDeDesconto, @Future LocalDate validade) {
+		Assert.isTrue(LocalDate.now().compareTo(validade) < 0, "A validade deve ser uma data futura!");
 		this.codigo = codigo;
 		this.percentualDeDesconto = percentualDeDesconto;
 		this.validade = validade;

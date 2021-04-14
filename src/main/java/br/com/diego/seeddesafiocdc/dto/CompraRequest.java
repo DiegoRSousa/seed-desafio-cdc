@@ -42,6 +42,7 @@ public class CompraRequest {
 	private String complemento;
 	@NotBlank
 	private String cidade;
+	@NotNull
 	@Exists(domainClass = Pais.class, fieldName = "id")
 	private Long paisId;
 	@Exists(domainClass = Estado.class, fieldName = "id")
@@ -53,12 +54,32 @@ public class CompraRequest {
 	@NotNull
 	@Positive
 	private BigDecimal total;
+	@Exists(domainClass = Cupom.class, fieldName = "codigo")
+	private String codigoCupom;
 	@Valid
 	@Size(min = 1)
 	private List<ItemCompraRequest> itensCompraRequest = new ArrayList<>();
-	@Exists(domainClass = Cupom.class, fieldName = "codigo")
-	private String codigoCupom;
-	
+
+	public CompraRequest(@NotBlank @Email String email, @NotBlank String nome, @NotBlank String sobrenome, @NotBlank String documento, 
+			@NotBlank String endereco, @NotBlank String complemento,@NotBlank String cidade, @NotNull Long paisId, Long estadoId, 
+			@NotBlank String telefone, @NotBlank String cep, @NotNull @Positive BigDecimal total, String codigoCupom,
+			@Valid @Size(min = 1) List<ItemCompraRequest> itensCompraRequest) {
+		this.email = email;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.documento = documento;
+		this.endereco = endereco;
+		this.complemento = complemento;
+		this.cidade = cidade;
+		this.paisId = paisId;
+		this.estadoId = estadoId;
+		this.telefone = telefone;
+		this.cep = cep;
+		this.total = total;
+		this.codigoCupom = codigoCupom;
+		this.itensCompraRequest = itensCompraRequest;
+	}
+
 	public boolean documentoValido() {
 		Assert.hasLength(documento, "O documento deve ser preenchido");
 		CPFValidator cpfValidator = new CPFValidator();
@@ -85,35 +106,10 @@ public class CompraRequest {
 			
 		Assert.isTrue(compra.totalIgual(total), "O total do pedido é diferente do total dos itens");
 		return compra;
-
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public String getSobrenome() {
-		return sobrenome;
-	}
-
-	public String getDocumento() {
-		return documento;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public String getCidade() {
-		return cidade;
+	public String getCodigoCupom() {
+		return codigoCupom;
 	}
 
 	public Long getPaisId() {
@@ -122,25 +118,5 @@ public class CompraRequest {
 
 	public Long getEstadoId() {
 		return estadoId;
-	}
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public String getCep() {
-		return cep;
-	}
-	
-	public BigDecimal getTotal() {
-		return total;
-	}
-	
-	public String getCodigoCupom() {
-		return codigoCupom;
-	}
-
-	public List<ItemCompraRequest> getItensCompraRequest() {
-		return itensCompraRequest;
-	}
+	}	
 }

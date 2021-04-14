@@ -16,15 +16,13 @@ public class ItemCompraRequest {
 	@Positive
 	private int quantidade;
 	
+	public ItemCompraRequest(@NotNull Long livroId, @Positive int quantidade) {
+		this.livroId = livroId;
+		this.quantidade = quantidade;
+	}
+
 	public ItemCompra toModel(LivroRepository livroRepository) {
 		var livro = livroRepository.getOne(livroId);
 		return new ItemCompra(livro, quantidade);
-	}
-	
-	public Long getLivroId() {
-		return livroId;
-	}
-	public int getQuantidade() {
-		return quantidade;
 	}
 }
