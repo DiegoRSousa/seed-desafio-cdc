@@ -54,6 +54,9 @@ public class LivroRequest {
 	public void setDataDePublicacao(LocalDate dataDePublicacao) {
 		this.dataDePublicacao = dataDePublicacao;
 	}
+	
+	@Deprecated
+	public LivroRequest() {}
 
 	@JsonCreator
 	public LivroRequest(@NotBlank String titulo, @NotBlank @Size(max = 500) String resumo, String sumario,
@@ -77,6 +80,42 @@ public class LivroRequest {
 		Assert.state(categoria != null, "Não é possível cadastrar um livro sem uma categoria!");
 		Assert.state(autor != null, "Não é possível cadastrar um livro sem um autor!");
 		return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataDePublicacao, categoria, autor);
+	}
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public String getResumo() {
+		return resumo;
+	}
+
+	public String getSumario() {
+		return sumario;
+	}
+
+	public BigDecimal getPreco() {
+		return preco;
+	}
+
+	public int getNumeroDePaginas() {
+		return numeroDePaginas;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public LocalDate getDataDePublicacao() {
+		return dataDePublicacao;
+	}
+
+	public Long getCategoriaId() {
+		return categoriaId;
+	}
+
+	public Long getAutorId() {
+		return autorId;
 	}
 
 }

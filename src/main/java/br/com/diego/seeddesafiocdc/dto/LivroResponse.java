@@ -17,6 +17,8 @@ public class LivroResponse {
 	private String categoria;
 	private String autor;
 	
+	@Deprecated
+	public LivroResponse() {}
 	public LivroResponse(Livro livro) {
 		this.id = livro.getId();
 		this.titulo = livro.getTitulo();

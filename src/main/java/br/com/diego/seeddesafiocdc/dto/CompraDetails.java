@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.util.Assert;
-
 import br.com.diego.seeddesafiocdc.model.Compra;
 
 public class CompraDetails {
@@ -27,9 +25,10 @@ public class CompraDetails {
 	private BigDecimal totalComDesconto;
 	private List<ItemCompraDetails> itensCompra = new ArrayList<>();
 	
+	@Deprecated
+	public CompraDetails() {}
 	
 	public CompraDetails(Compra compra) {
-		Assert.notNull(pais, "O país não pode ser nulo");
 		this.email = compra.getEmail();
 		this.nome = compra.getNome();
 		this.sobrenome = compra.getSobrenome();

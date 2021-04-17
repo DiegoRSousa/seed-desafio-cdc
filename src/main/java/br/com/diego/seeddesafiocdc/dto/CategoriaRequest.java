@@ -15,6 +15,13 @@ public class CategoriaRequest {
 		return new Categoria(nome);
 	}
 	
+	@Deprecated
+	public CategoriaRequest() {}
+
+	public CategoriaRequest(@NotBlank String nome) {
+		this.nome = nome;
+	}
+
 	public String getNome() {
 		return nome;
 	}

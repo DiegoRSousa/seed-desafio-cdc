@@ -15,6 +15,9 @@ public class CupomResponse {
 	@JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate validade;
 	
+	@Deprecated
+	public CupomResponse() {}
+	
 	public CupomResponse(Cupom cupom) {
 		this.id = cupom.getId();
 		this.codigo = cupom.getCodigo();

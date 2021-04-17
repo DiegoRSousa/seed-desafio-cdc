@@ -15,7 +15,7 @@ import br.com.diego.seeddesafiocdc.dto.AutorResponse;
 import br.com.diego.seeddesafiocdc.repository.AutorRepository;
 
 @RestController
-@RequestMapping("autores")
+@RequestMapping("/autores")
 public class AutorController {
 
 	private AutorRepository autorRepository;

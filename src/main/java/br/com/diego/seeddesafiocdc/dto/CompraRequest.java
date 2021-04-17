@@ -108,8 +108,32 @@ public class CompraRequest {
 		return compra;
 	}
 
-	public String getCodigoCupom() {
-		return codigoCupom;
+	public String getEmail() {
+		return email;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public String getCidade() {
+		return cidade;
 	}
 
 	public Long getPaisId() {
@@ -118,5 +142,25 @@ public class CompraRequest {
 
 	public Long getEstadoId() {
 		return estadoId;
-	}	
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public BigDecimal getTotal() {
+		return total;
+	}
+
+	public String getCodigoCupom() {
+		return codigoCupom;
+	}
+
+	public List<ItemCompraRequest> getItensCompraRequest() {
+		return itensCompraRequest;
+	}
 }

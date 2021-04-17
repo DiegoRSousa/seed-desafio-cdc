@@ -12,6 +12,9 @@ public class AutorResponse {
 	private String descricao;
 	private LocalDateTime instante;
 	
+	@Deprecated
+	public AutorResponse() {}
+	
 	public AutorResponse(Autor autor) {
 		this.id = autor.getId();
 		this.nome = autor.getNome();

@@ -18,6 +18,13 @@ public class AutorRequest {
 	@Size(min = 1, max = 400)
 	private String descricao;
 	
+	public AutorRequest(@NotBlank String nome, @Email @NotBlank String email,
+			@Size(min = 1, max = 400) String descricao) {
+		this.nome = nome;
+		this.email = email;
+		this.descricao = descricao;
+	}
+
 	public Autor toModel() {
 		return new Autor(nome, email, descricao);
 	}
@@ -26,12 +33,12 @@ public class AutorRequest {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEmail() {
 		return email;
+	}
+
+	public String getDescricao() {
+		return descricao;
 	}
 
 }

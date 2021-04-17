@@ -7,6 +7,8 @@ public class CategoriaResponse {
 	private Long id;
 	private String nome;
 	
+	@Deprecated
+	public CategoriaResponse() {} 
 	public CategoriaResponse(Categoria categoria) {
 		this.id = categoria.getId();
 		this.nome = categoria.getNome();

@@ -8,6 +8,9 @@ public class EstadoResponse {
 	private String nome; 
 	private String pais;
 	
+	@Deprecated
+	public EstadoResponse() {}
+	
 	public EstadoResponse(Estado estado) {
 		this.id = estado.getId();
 		this.nome = estado.getNome();

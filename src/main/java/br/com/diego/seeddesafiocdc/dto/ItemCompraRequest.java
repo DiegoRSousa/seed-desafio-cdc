@@ -25,4 +25,12 @@ public class ItemCompraRequest {
 		var livro = livroRepository.getOne(livroId);
 		return new ItemCompra(livro, quantidade);
 	}
+
+	public Long getLivroId() {
+		return livroId;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
 }

@@ -79,7 +79,7 @@ Content-Type: application/json
 {
     "codigo": "DEV2021",
     "percentualDeDesconto": 30,
-    "validade": "10/04/2022"
+    "validade": "30/12/2021"
 }
 ###
 POST {{baseUrl}}/compras/
@@ -98,7 +98,7 @@ Content-Type: application/json
 	"telefone": "83999999999",
 	"cep": "58884000",
     "total": "100.00",
-    "codigoCupom": "XBS100",
+    "codigoCupom": "DEV2021",
     "itensCompraRequest": [
         {
             "livroId": 1,
@@ -143,4 +143,4 @@ Content-Type: application/json
 
 
 ###
-GET {{baseUrl}}/compras/2
+GET {{baseUrl}}/compras/1

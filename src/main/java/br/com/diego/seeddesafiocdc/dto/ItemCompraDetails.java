@@ -11,6 +11,9 @@ public class ItemCompraDetails {
 	private BigDecimal preco;
 	private BigDecimal subTotal;
 	
+	@Deprecated
+	public ItemCompraDetails() {}
+	
 	public ItemCompraDetails(Livro livro, int quantidade) {
 		this.titulo = livro.getTitulo();
 		this.quantidade = quantidade;
